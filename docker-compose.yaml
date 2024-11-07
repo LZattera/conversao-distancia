@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  python-app:
+    build:
+      context: .  # Diretório onde está o Dockerfile
+    ports:
+      - "5000:5000"  # Mapeia a porta do contêiner para o host
+    volumes:
+      - .:/app  # Monta o diretório atual como volume no contêiner
+      - /app/venv  # Ignora o diretório de ambiente virtual (se aplicável)
+    environment:
+      - FLASK_ENV=development  # Configura a variável de ambiente para desenvolvimento
+    command: ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]  # Comando de inicialização
